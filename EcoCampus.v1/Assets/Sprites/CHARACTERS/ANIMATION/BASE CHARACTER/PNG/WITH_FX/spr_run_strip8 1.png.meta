@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a6a51642c18b43748adc951bdf251e58
+guid: d2c93ad2000cc8345a453fc09f423655
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -142,7 +142,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
+        width: 94
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -162,9 +162,9 @@ TextureImporter:
       name: spr_run_strip8_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 94
         y: 0
-        width: 96
+        width: 94
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -184,9 +184,9 @@ TextureImporter:
       name: spr_run_strip8_2
       rect:
         serializedVersion: 2
-        x: 192
+        x: 188
         y: 0
-        width: 96
+        width: 94
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -206,9 +206,9 @@ TextureImporter:
       name: spr_run_strip8_3
       rect:
         serializedVersion: 2
-        x: 288
+        x: 282
         y: 0
-        width: 96
+        width: 94
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -228,9 +228,9 @@ TextureImporter:
       name: spr_run_strip8_4
       rect:
         serializedVersion: 2
-        x: 384
+        x: 376
         y: 0
-        width: 96
+        width: 94
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -250,9 +250,9 @@ TextureImporter:
       name: spr_run_strip8_5
       rect:
         serializedVersion: 2
-        x: 480
+        x: 470
         y: 0
-        width: 96
+        width: 94
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -272,9 +272,9 @@ TextureImporter:
       name: spr_run_strip8_6
       rect:
         serializedVersion: 2
-        x: 576
+        x: 564
         y: 0
-        width: 96
+        width: 94
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -294,9 +294,9 @@ TextureImporter:
       name: spr_run_strip8_7
       rect:
         serializedVersion: 2
-        x: 672
+        x: 658
         y: 0
-        width: 96
+        width: 94
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
