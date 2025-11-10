@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     // vou usar o SerializeField para expor a variavel Speed no inspetor do Unity e dexala privada por razões de encapsulamento
     [SerializeField] private float Speed;
     [SerializeField] private float runSpeed;
+    
+    
     // componentes: 
     private Rigidbody2D rig;
 
@@ -106,10 +108,12 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(1)) //valor de 1 para o botao direito do mouse e valor 0 para o botao esquerdo
 
         {
+            Speed = runSpeed;
             _isRolling = true;
         }
         if (Input.GetMouseButtonUp(1))
         {
+            Speed = inicialSpeed;
             _isRolling = false;
         }
 
