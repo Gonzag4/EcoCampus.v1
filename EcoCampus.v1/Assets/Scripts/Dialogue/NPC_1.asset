@@ -12,3 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cea320a53183f44821f36d13503978, type: 3}
   m_Name: NPC_1
   m_EditorClassIdentifier: 
+  actor: {fileID: 3556756736345323219, guid: d00e6c4f131b76d4abd5519cd67c4c4e, type: 3}
+  speakerSprite: {fileID: 0}
+  sentence: 
+  dialogues:
+  - actorName: "mo\xE7a "
+    profile: {fileID: -5921131596595627069, guid: b7f5695473ae4e44d9f6ee22bfe80676, type: 3}
+    sentence:
+      portiguese: "Ol\xE1, mundo!"
+      english: Hello world
+      spanish: Hola
+  - actorName: 
+    profile: {fileID: 0}
+    sentence:
+      portiguese: 
+      english: 
+      spanish: 
+  - actorName: 
+    profile: {fileID: 4827478881922356172, guid: d5f385824496ac343a5acb6b4f43efeb, type: 3}
+    sentence:
+      portiguese: "Ol\xE1, mundo!"
+      english: 
+      spanish: 
