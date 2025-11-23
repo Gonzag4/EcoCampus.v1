@@ -25,6 +25,8 @@ public class DialogueSettings : ScriptableObject //transforma em um gerenciador 
 
 }
 
+
+// a fala esta no sentences 
 [System.Serializable]
 public class Sentences
 {
@@ -37,7 +39,7 @@ public class Sentences
 [System.Serializable]
 public class Languages
 {
-    public string portiguese;
+    public string portuguese;
     public string english;
     public string spanish;
     
@@ -56,7 +58,7 @@ public class BuilderEditor : Editor
         
         
         Languages l = new Languages();
-        l.portiguese = ds.sentence;
+        l.portuguese = ds.sentence;
 
         Sentences s = new Sentences();
         s.profile = ds.speakerSprite;

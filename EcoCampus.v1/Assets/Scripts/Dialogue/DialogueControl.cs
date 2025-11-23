@@ -7,10 +7,20 @@ using UnityEngine.UI;
 
 public class DialogueControl : MonoBehaviour
 {
+    [System.Serializable]
+    public enum idiom
+    {
+        pt,
+        eng,
+        spa
+    }
+
+    public idiom language; //variavel para selecionar o idioma
+
     [Header("Components")]  // cabeçalho no inspetor
     public GameObject dialogueObj; //janela de dialogo
     public Image profileSprite;// sprite de perfil
-    public Text speechTest; // texto da fala
+    public Text speechText; // texto da fala
     public Text actorNameText; // nome do npc 
 
     [Header("Settings")]
@@ -22,7 +32,16 @@ public class DialogueControl : MonoBehaviour
     private int index; // indice para controlar as falas
     private string[] sentences; // array de frases
 
+    public static DialogueControl Instance;
 
+    // é chamado antes de todos os Start() ba hierarquia de execução de scripts 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+
+    //é chamado ao inicializar 
     void Start()
     {
         
@@ -38,7 +57,7 @@ public class DialogueControl : MonoBehaviour
     {
         foreach(char letter in sentences[index].ToCharArray())
         {
-            speechTest.text += letter;
+            speechText.text += letter;
             yield return new WaitForSeconds(typingSpeed); //variavel pra controlar a velocidade da fala 
         }
     }
@@ -46,7 +65,24 @@ public class DialogueControl : MonoBehaviour
     //avança para a proxima fala
     public void NextSentence()
     {
+        if (speechText.text == sentences[index])
+        {
+          if (index < sentences.Length - 1 )
+          {
+                index++;  
+                speechText.text = ""; // apaga o texto anterior para pular para o proximo
+                StartCoroutine(TypeSentence());
 
+          }
+          else //quando terminar os textos
+          {
+               speechText.text = "";
+                index = 0; 
+                dialogueObj.SetActive(false); // desativa o objeto de dialogo
+                sentences = null; // limpa as sentenças
+                isShowing = false;
+            }
+        }
     }
 
     //chamar a fala do npc 
