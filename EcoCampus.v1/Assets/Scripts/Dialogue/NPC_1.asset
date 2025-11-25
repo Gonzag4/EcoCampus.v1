@@ -19,18 +19,12 @@ MonoBehaviour:
   - actorName: "mo\xE7a "
     profile: {fileID: -5921131596595627069, guid: b7f5695473ae4e44d9f6ee22bfe80676, type: 3}
     sentence:
-      portiguese: "Ol\xE1, mundo!"
+      portuguese: 'ola '
       english: Hello world
       spanish: Hola
-  - actorName: 
-    profile: {fileID: 0}
+  - actorName: 'heroi '
+    profile: {fileID: -7739973837865852884, guid: b7f5695473ae4e44d9f6ee22bfe80676, type: 3}
     sentence:
-      portiguese: 
-      english: 
-      spanish: 
-  - actorName: 
-    profile: {fileID: 4827478881922356172, guid: d5f385824496ac343a5acb6b4f43efeb, type: 3}
-    sentence:
-      portiguese: "Ol\xE1, mundo!"
-      english: 
-      spanish: 
+      portuguese: tudo bem?
+      english: how are you?
+      spanish: hola que tal?
