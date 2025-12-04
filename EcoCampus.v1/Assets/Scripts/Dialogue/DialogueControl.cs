@@ -28,7 +28,7 @@ public class DialogueControl : MonoBehaviour
 
 
     //variaveis de controle:
-    private bool isShowing; // se o dialogo esta aparecendo (visivel)
+    public bool isShowing; // se o dialogo esta aparecendo (visivel)
     private int index; // indice para controlar as falas
     private string[] sentences; // array de frases
 
