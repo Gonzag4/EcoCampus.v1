@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-
 public class NPC_Dialogue : MonoBehaviour
 {
 

@@ -1,5 +1,6 @@
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-
 public class PlayerAniim : MonoBehaviour
 {
     private Player player;
@@ -50,6 +51,11 @@ public class PlayerAniim : MonoBehaviour
         if (player.Direction.x < 0)
         {
             transform.eulerAngles = new Vector2(0, 180);
+        }
+
+        if (player.isCutting)
+        {
+            anim.SetInteger("Transition", 3); // cortando
         }
     }
 
