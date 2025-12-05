@@ -20,8 +20,11 @@ public class Player : MonoBehaviour
     private bool _isRunning;
     private bool _isRolling;
     private bool _isCutting;
+    private bool _isDigging;
     private Vector2 _direction;
 
+
+    private int handleObj;
 
     //construtores:
     public Vector2 Direction
@@ -48,6 +51,13 @@ public class Player : MonoBehaviour
         set { _isCutting = value; }
     }
 
+    public bool isDigging
+    {
+        get { return _isDigging; }
+        set { _isDigging = value; }
+    }
+
+
 
 
     //metodos:
@@ -60,6 +70,17 @@ public class Player : MonoBehaviour
     
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            handleObj = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            handleObj = 1;
+        }
+
+
+
        onInput();
 
        onRun();
@@ -67,6 +88,8 @@ public class Player : MonoBehaviour
        onRolling();
 
        onCutting();
+
+       onDig();
 
     }
 
@@ -80,18 +103,39 @@ public class Player : MonoBehaviour
     // #region server para organizar um bloco de codigo
     #region Movement 
 
+    void onDig()
+    {
+
+        if (handleObj == 1) { 
+             if (Input.GetMouseButtonDown(0))
+             {
+                 isDigging = true;
+                 Speed = 0f;
+             }
+             if (Input.GetMouseButtonUp(0))
+             {
+                 isDigging = false;
+                 Speed = inicialSpeed;
+             }
+        }
+
+    }
+
     void onCutting()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (handleObj == 0)
         {
-            isCutting = true;
-            Speed = 0;
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            isCutting = false;
-            Speed = inicialSpeed;
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                isCutting = true;
+                Speed = 0f;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                isCutting = false;
+                Speed = inicialSpeed;
+            }
+        } 
 
     }
     void onInput()

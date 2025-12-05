@@ -57,6 +57,11 @@ public class PlayerAniim : MonoBehaviour
         {
             anim.SetInteger("Transition", 3); // cortando
         }
+        
+        if (player.isDigging)
+        {
+            anim.SetInteger("Transition", 4); // cavando 
+        }
     }
 
     void onRun()
