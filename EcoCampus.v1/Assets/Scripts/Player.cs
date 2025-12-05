@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     
     // componentes: 
     private Rigidbody2D rig;
+    private PlayerItems playerItems;
 
     //atributos:
 
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
     private bool _isRolling;
     private bool _isCutting;
     private bool _isDigging;
+    private bool _isWatering;
+
     private Vector2 _direction;
 
 
@@ -57,6 +60,12 @@ public class Player : MonoBehaviour
         set { _isDigging = value; }
     }
 
+    public bool isWatering
+    {
+        get { return _isWatering; }
+        set { _isWatering = value; }
+    }
+
 
 
 
@@ -64,6 +73,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        playerItems = GetComponent<PlayerItems>();
         inicialSpeed = Speed;
     }
 
@@ -79,9 +89,14 @@ public class Player : MonoBehaviour
             handleObj = 1;
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            handleObj = 2;
+        }
 
 
-       onInput();
+
+        onInput();
 
        onRun();
 
@@ -90,6 +105,8 @@ public class Player : MonoBehaviour
        onCutting();
 
        onDig();
+
+       onWatering();
 
     }
 
@@ -102,6 +119,28 @@ public class Player : MonoBehaviour
 
     // #region server para organizar um bloco de codigo
     #region Movement 
+
+    void onWatering()
+    {
+        // permite que o player regue quando tiver agua no regador e decresce a quantidade de agua ao clicar
+        if (handleObj == 2 && playerItems.currentWater > 0)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+
+                playerItems.currentWater -= 0.0001f;
+                isWatering = true;
+                Speed = 0f;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                isWatering = false;
+                Speed = inicialSpeed;
+            }
+        }
+
+    }
+
 
     void onDig()
     {

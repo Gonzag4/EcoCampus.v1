@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-
 public class NewMonoBehaviourScript : MonoBehaviour
 {
 
