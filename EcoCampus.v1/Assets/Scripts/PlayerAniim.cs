@@ -1,17 +1,20 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-public class PlayerAniim : MonoBehaviour
+public class PlayerAnim : MonoBehaviour
 {
     private Player player;
     private Animator anim;
 
+    private Casting cast;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GetComponent<Player>();
         anim = GetComponent<Animator>();
+
+        cast = FindObjectOfType<Casting>();
     }
 
     // Update is called once per frame
@@ -77,4 +80,19 @@ public class PlayerAniim : MonoBehaviour
         }
     }
     #endregion
+
+
+    // é chamado quando o jogador inicia o botão de ação na lagoa 
+    public void OnCastingStarted()
+    {
+        anim.SetTrigger("isCasting");
+        player.isPaused = true;
+    }
+
+    // é chamado no final da animação de pesca
+    public void OnCastingEnded()
+    {
+        cast.OnCasting();
+        player.isPaused = false;
+    }
 }

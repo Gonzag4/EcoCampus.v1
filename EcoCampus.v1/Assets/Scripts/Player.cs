@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool isPaused;
+
     // vou usar o SerializeField para expor a variavel Speed no inspetor do Unity e dexala privada por razões de encapsulamento
     [SerializeField] private float Speed;
     [SerializeField] private float runSpeed;
@@ -80,40 +82,47 @@ public class Player : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+
+        if (!isPaused)
         {
-            handleObj = 0;
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                handleObj = 0;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                handleObj = 1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                handleObj = 2;
+            }
+
+
+
+            onInput();
+
+            onRun();
+
+            onRolling();
+
+            onCutting();
+
+            onDig();
+
+            onWatering();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            handleObj = 1;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            handleObj = 2;
-        }
-
-
-
-        onInput();
-
-       onRun();
-
-       onRolling();
-
-       onCutting();
-
-       onDig();
-
-       onWatering();
+      
 
     }
 
     private void FixedUpdate()
     {
-        onMove();
-
+        if (!isPaused)
+        {
+            onMove();
+        }
 
     }
 
