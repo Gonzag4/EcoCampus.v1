@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class AnimationControl : MonoBehaviour
 {
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private float radius;
+    [SerializeField] private LayerMask playerLayer;
 
     private Animator anim;
     
@@ -15,9 +18,26 @@ public class AnimationControl : MonoBehaviour
         anim.SetInteger("transition", value);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Attack()
     {
-        
+        Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, radius, playerLayer);
+
+        if (hit != null)
+        {
+            //detecta colisão com player
+            Debug.Log("Player atingido!");
+        }
+        else
+        {
+            
+        }
     }
+
+    //criando um gizmo para visualizar o ponto de ataque no editor
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(attackPoint.position, radius);
+    }
+
+
 }

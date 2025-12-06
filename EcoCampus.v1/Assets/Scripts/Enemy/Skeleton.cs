@@ -31,5 +31,17 @@ public class Skeleton: MonoBehaviour
             animControl.PlayAnim(1); //animação de andar
 
         }
+
+        //Debug.Log(player.transform.position.x - transform.position.x);
+        float posX = player.transform.position.x - transform.position.x;
+        
+        if (posX > 0)
+        {
+            transform.eulerAngles = new Vector2(0, 0);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector2(0, 180); // rotaciona o esqueleto para olhar para o player
+        }
     }
 }
