@@ -5,6 +5,9 @@ public class PlayerItems : MonoBehaviour
 {
     
     public int totalWood;
+    public int carrots; 
+
+
    
     public float currentWater;
     private float waterLimit = 50;
@@ -17,17 +20,5 @@ public class PlayerItems : MonoBehaviour
         }
 
 
-    }
-
-
-    void Start()
-    {
-        
-    }
-
-    
-    void Update()
-    {
-        
     }
 }

@@ -123,19 +123,22 @@ public class Player : MonoBehaviour
     void onWatering()
     {
         // permite que o player regue quando tiver agua no regador e decresce a quantidade de agua ao clicar
-        if (handleObj == 2 && playerItems.currentWater > 0)
+        if (handleObj == 2)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && playerItems.currentWater > 0)
             {
 
-                playerItems.currentWater -= 0.0001f;
                 isWatering = true;
                 Speed = 0f;
             }
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) || playerItems.currentWater < 0)
             {
                 isWatering = false;
                 Speed = inicialSpeed;
+            }
+            if(isWatering)
+            {
+                 playerItems.currentWater -= 0.01f;
             }
         }
 
