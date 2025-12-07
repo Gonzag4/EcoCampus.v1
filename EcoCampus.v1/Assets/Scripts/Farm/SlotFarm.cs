@@ -2,8 +2,13 @@ using Unity.VisualScripting;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-public class SlotFarm: MonoBehaviour
+public class SlotFarm : MonoBehaviour
 {
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip holeSFX;
+    [SerializeField] private AudioClip carrotSFX;
 
     [Header("Components")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -22,6 +27,7 @@ public class SlotFarm: MonoBehaviour
     private float currentWater;
 
     private bool dugHole;
+    private bool plantedCarrot;
 
     PlayerItems playerItems;
 
@@ -42,21 +48,25 @@ public class SlotFarm: MonoBehaviour
             }
 
             //encheu a quantidade de agua necessária para nascer a cenoura
-            if (currentWater >= waterAmount)
+            if (currentWater >= waterAmount && !plantedCarrot)
             {
+                audioSource.PlayOneShot(holeSFX);
                 //plantar cenoura
                 spriteRenderer.sprite = carrot;
-                
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    //colher cenoura
-                    spriteRenderer.sprite = hole;
-                    playerItems.carrots++;
-                    Debug.Log("Cenoura Colhida! Total: " + playerItems.carrots);    
 
-                    currentWater = 0f;
-                }
+                plantedCarrot = true;
             
+            }
+           
+            if (Input.GetKeyDown(KeyCode.E) && plantedCarrot)
+            {
+                audioSource.PlayOneShot(carrotSFX);
+                //colher cenoura
+                spriteRenderer.sprite = hole;
+                playerItems.carrots++;
+                Debug.Log("Cenoura Colhida! Total: " + playerItems.carrots);
+
+                currentWater = 0f;
             }
         }
      
