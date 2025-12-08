@@ -6,6 +6,8 @@ public class Skeleton: MonoBehaviour
 {
 
     [Header("Stats")]
+    public float radius;
+    public LayerMask layer;
     public float totalHealth;
     public float currentHealth;
     public Image healthBar;
@@ -18,6 +20,8 @@ public class Skeleton: MonoBehaviour
 
 
     private Player player;
+    private bool detectPlayer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,8 +34,9 @@ public class Skeleton: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDead)
+        if (!isDead && detectPlayer)
         {
+            agent.isStopped = false;
             agent.SetDestination(player.transform.position); //esqueleto se movimenta em direção ao jogador
 
             if (Vector2.Distance(transform.position, player.transform.position) <= agent.stoppingDistance)
@@ -59,5 +64,34 @@ public class Skeleton: MonoBehaviour
             }
 
         }
+    }
+
+    private void FixedUpdate()
+    {
+        DetectPlayer();
+    }
+
+
+    public void DetectPlayer()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, radius, layer);
+
+        if (hit != null)
+        {
+            Debug.Log("Player Detectado!");
+            detectPlayer = true;
+        }
+        else
+        {
+            Debug.Log("Player Não Detectado!");
+            detectPlayer = false;
+            animControl.PlayAnim(0); //animação de idle
+            agent.isStopped = true;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

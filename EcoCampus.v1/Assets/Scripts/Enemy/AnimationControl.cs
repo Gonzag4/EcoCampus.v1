@@ -26,8 +26,8 @@ public class AnimationControl : MonoBehaviour
 
     public void Attack()
     {
-        //if (skeleton.isDead)
-       // {
+        if (!skeleton.isDead)
+        {
             Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, radius, playerLayer);
 
             if (hit != null)
@@ -36,7 +36,7 @@ public class AnimationControl : MonoBehaviour
                 Debug.Log("Player atingido!");
                 player.OnHit();
             }
-       // }
+        }
 
     }
 

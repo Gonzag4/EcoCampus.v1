@@ -16,7 +16,7 @@ MonoBehaviour:
   speakerSprite: {fileID: 0}
   sentence: 
   dialogues:
-  - actorName: "mo\xE7a "
+  - actorName: "Mo\xE7a "
     profile: {fileID: -5921131596595627069, guid: b7f5695473ae4e44d9f6ee22bfe80676, type: 3}
     sentence:
       portuguese: 'ola '
@@ -28,3 +28,9 @@ MonoBehaviour:
       portuguese: tudo bem?
       english: how are you?
       spanish: hola que tal?
+  - actorName: 'heroi '
+    profile: {fileID: -7739973837865852884, guid: b7f5695473ae4e44d9f6ee22bfe80676, type: 3}
+    sentence:
+      portuguese: ksksksksksk
+      english: hahahahahhaha
+      spanish: kkkkkkkkkkkkkk

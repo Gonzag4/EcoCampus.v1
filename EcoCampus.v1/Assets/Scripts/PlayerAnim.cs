@@ -54,8 +54,13 @@ public class PlayerAnim : MonoBehaviour
             //só podera rolar se estiver andando
             if (player.isRolling)
             {
-                anim.SetTrigger("isRoll");
-            } else
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("roll"))
+                {
+                    anim.SetTrigger("isRoll");
+                }
+                
+            } 
+            else
             { 
                 anim.SetInteger("Transition", 1); //andando
         
@@ -94,7 +99,7 @@ public class PlayerAnim : MonoBehaviour
 
     void onRun()
     {
-        if (player.isRunning)
+        if (player.isRunning && player.Direction.sqrMagnitude > 0)
         {
             anim.SetInteger("Transition", 2); // correndo
         }

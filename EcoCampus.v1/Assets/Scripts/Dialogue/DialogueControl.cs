@@ -31,6 +31,10 @@ public class DialogueControl : MonoBehaviour
     public bool isShowing; // se o dialogo esta aparecendo (visivel)
     private int index; // indice para controlar as falas
     private string[] sentences; // array de frases
+    private string[] currentActorName;
+    private Sprite[] actorSprite;
+
+    private Player player; 
 
     public static DialogueControl Instance;
 
@@ -44,13 +48,7 @@ public class DialogueControl : MonoBehaviour
     //é chamado ao inicializar 
     void Start()
     {
-        
-    }
-
-  
-    void Update()
-    {
-        
+        player = FindObjectOfType<Player>();
     }
 
     IEnumerator TypeSentence()
@@ -70,30 +68,39 @@ public class DialogueControl : MonoBehaviour
           if (index < sentences.Length - 1 )
           {
                 index++;  
+                profileSprite.sprite = actorSprite[index]; //atualiza o sprite do perfil
+                actorNameText.text = currentActorName[index]; //atualiza o nome do npc
                 speechText.text = ""; // apaga o texto anterior para pular para o proximo
                 StartCoroutine(TypeSentence());
 
           }
           else //quando terminar os textos
           {
-               speechText.text = "";
+                speechText.text = "";
+                actorNameText.text = "";
                 index = 0; 
                 dialogueObj.SetActive(false); // desativa o objeto de dialogo
                 sentences = null; // limpa as sentenças
                 isShowing = false;
+                player.isPaused = false; // libera o jogador
             }
         }
     }
 
     //chamar a fala do npc 
-    public void Speech(string[] txt)
+    public void Speech(string[] txt, string[] actorName, Sprite[] actorProfile)
     {
         if(!isShowing)
         {
             dialogueObj.SetActive(true);
             sentences = txt;
+            currentActorName = actorName;
+            actorSprite = actorProfile;
+            profileSprite.sprite = actorSprite[index]; //atualiza o sprite do perfil
+            actorNameText.text = currentActorName[index]; //atualiza o nome do npc
             StartCoroutine(TypeSentence());
             isShowing = true;
+            player.isPaused = true; // pausa o jogador enquanto o dialogo estiver ativo
         }
     }
 }
