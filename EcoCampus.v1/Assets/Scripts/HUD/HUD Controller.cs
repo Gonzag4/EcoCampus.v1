@@ -25,12 +25,12 @@ public class HUDController : MonoBehaviour
     [SerializeField] private Color alphaColor;
 
     private PlayerItems playerItems;
-    private Player player;
+    private Player1 player;
 
     private void Awake()
     {
         playerItems = FindObjectOfType<PlayerItems>();
-        player = playerItems.GetComponent<Player>();
+        player = playerItems.GetComponent<Player1>();
     }   
 
 

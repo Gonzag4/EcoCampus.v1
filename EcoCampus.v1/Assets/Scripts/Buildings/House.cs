@@ -15,7 +15,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     [SerializeField] private Transform point;
 
 
-    private Player player;
+    private Player1 player1;
     private bool detectingPlayer;
     private PlayerAnim playerAnim;
     private PlayerItems playerItems;
@@ -26,9 +26,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = FindObjectOfType<Player>();
-        playerAnim = player.GetComponent<PlayerAnim>();
-        playerItems = player.GetComponent<PlayerItems>();
+        player1 = FindObjectOfType<Player1>();
+        playerAnim = player1.GetComponent<PlayerAnim>();
+        playerItems = player1.GetComponent<PlayerItems>();
     }
 
     // Update is called once per frame
@@ -41,8 +41,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
             isBegining = true; 
             playerAnim.OnHammeringStarted();
             houseSprite.color = startColor;
-            player.transform.position = point.position;
-            player.isPaused = true;
+            player1.transform.position = point.position;
+            player1.isPaused = true;
             playerItems.totalWood -= woodAmount;
         }
 
@@ -55,7 +55,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
                 //casa é finalizada
                 playerAnim.OnHammeringEnded();
                 houseSprite.color = endColor;
-                player.isPaused = false;
+                player1.isPaused = false;
                 houseColl.SetActive(true);
             }
         }

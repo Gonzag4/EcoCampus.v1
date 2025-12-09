@@ -34,7 +34,7 @@ public class DialogueControl : MonoBehaviour
     private string[] currentActorName;
     private Sprite[] actorSprite;
 
-    private Player player; 
+    private Player1 player; 
 
     public static DialogueControl Instance;
 
@@ -48,7 +48,7 @@ public class DialogueControl : MonoBehaviour
     //é chamado ao inicializar 
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<Player1>();
     }
 
     IEnumerator TypeSentence()

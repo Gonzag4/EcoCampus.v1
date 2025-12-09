@@ -9,7 +9,7 @@ public class PlayerAnim : MonoBehaviour
     [SerializeField] private float radius;
     [SerializeField] private LayerMask enemyLayer;
 
-    private Player player;
+    private Player1 player;
     private Animator anim;
 
     private Casting cast;
@@ -21,7 +21,7 @@ public class PlayerAnim : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GetComponent<Player>();
+        player = GetComponent<Player1>();
         anim = GetComponent<Animator>();
 
         cast = FindObjectOfType<Casting>();

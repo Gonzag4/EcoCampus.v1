@@ -1,259 +1,154 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public bool isPaused;
 
-    // vou usar o SerializeField para expor a variavel Speed no inspetor do Unity e dexala privada por raz�es de encapsulamento
-    [SerializeField] private float Speed;
-    [SerializeField] private float runSpeed;
-    
-    
-    // componentes: 
-    private Rigidbody2D rig;
-    private PlayerItems playerItems;
+    public float Speed_walk;
+    public float Jump_player;
+    public bool isJump;
+    public int LifeCount = 50;
 
-    //atributos:
+    private Rigidbody2D rigidbody2D;
+    private Animator animator;
+    public GameObject Smoke;
+    public static Player Instance;
 
-    private float inicialSpeed;
-    private bool _isRunning;
-    private bool _isRolling;
-    private bool _isCutting;
-    private bool _isDigging;
-    private bool _isWatering;
-
-    private Vector2 _direction;
-
-
-    [HideInInspector] public int handleObj;
-
-    //construtores:
-    public Vector2 Direction
-    {
-        get { return _direction; }
-        set { _direction = value; }
-    }
-
-    public bool isRunning
-    {
-        get { return _isRunning; }
-        set { _isRunning = value; }
-    }
-
-    public bool isRolling
-    {
-        get { return _isRolling; }
-        set { _isRolling = value; }
-    }
-
-    public bool isCutting
-    {
-        get { return _isCutting; }
-        set { _isCutting = value; }
-    }
-
-    public bool isDigging
-    {
-        get { return _isDigging; }
-        set { _isDigging = value; }
-    }
-
-    public bool isWatering
-    {
-        get { return _isWatering; }
-        set { _isWatering = value; }
-    }
-
-
-
-
-    //metodos:
     void Start()
     {
-        rig = GetComponent<Rigidbody2D>();
-        playerItems = GetComponent<PlayerItems>();
-        inicialSpeed = Speed;
+
+        //Inicializando variáveis
+        Instance = this;
+
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
     }
 
-    
-    private void Update()
+    void Update()
     {
 
-        if (!isPaused)
+        Move();
+        Jump();
+        Attack();
+
+        // Adicione esta verificação simples:
+        if (rigidbody2D.linearVelocity.y == 0 && isJump)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                handleObj = 0;
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                handleObj = 1;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                handleObj = 2;
-            }
-
-
-
-            onInput();
-
-            onRun();
-
-            onRolling();
-
-            onCutting();
-
-            onDig();
-
-            onWatering();
+            isJump = false;
+            animator.SetBool("jump", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            SceneManager.LoadScene("teste");
+            SceneManager.LoadScene("SampleScene");
         }
 
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            SceneManager.LoadScene("Credits");
+        }
 
     }
 
-    private void FixedUpdate()
+    void Move()
     {
-        if (!isPaused)
+        if (animator.GetBool("atk") == false)
         {
-            onMove();
-        }
 
-    }
+            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+            // Horizontal => Input predefinido do Unity
 
-    // #region server para organizar um bloco de codigo
-    #region Movement 
+            transform.position += move * Time.deltaTime * Speed_walk;
 
-    void onWatering()
-    {
-        // permite que o player regue quando tiver agua no regador e decresce a quantidade de agua ao clicar
-        if (handleObj == 2)
-        {
-            if (Input.GetMouseButtonDown(0) && playerItems.currentWater > 0)
+            if (Input.GetAxis("Horizontal") > 0f)
             {
-
-                isWatering = true;
-                Speed = 0f;
+                animator.SetBool("walk", true);
+                transform.eulerAngles = new Vector3(0f, 0f, 0f);
             }
-            if (Input.GetMouseButtonUp(0) || playerItems.currentWater < 0)
+            if (Input.GetAxis("Horizontal") < 0f)
             {
-                isWatering = false;
-                Speed = inicialSpeed;
+                animator.SetBool("walk", true);
+                transform.eulerAngles = new Vector3(0f, 180f, 0f);
             }
-            if(isWatering)
+            if (Input.GetAxis("Horizontal") == 0f)
             {
-                 playerItems.currentWater -= 0.01f;
+                animator.SetBool("walk", false);
             }
         }
-        else
-        {
-            isWatering = false;
-        }
-
     }
 
-
-    void onDig()
+    void Jump()
     {
-
-        if (handleObj == 1) { 
-             if (Input.GetMouseButtonDown(0))
-             {
-                 isDigging = true;
-                 Speed = 0f;
-             }
-             if (Input.GetMouseButtonUp(0))
-             {
-                 isDigging = false;
-                 Speed = inicialSpeed;
-             }
-        }
-        else
+        if (Input.GetButtonDown("Jump") && !isJump)
         {
-            isDigging = false;
+            rigidbody2D.AddForce(new Vector2(0f, Jump_player), ForceMode2D.Impulse);
+            animator.SetBool("jump", true);
+            isJump = true;
         }
-
     }
 
-    void onCutting()
+    void Attack()
     {
-        if (handleObj == 0)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetMouseButtonDown(0))
+            if (GameControl.Instance.ExtLevel > 1)
             {
-                isCutting = true;
-                Speed = 0f;
+                animator.SetBool("atk", true);
+                Smoke.SetActive(true);
+
+                GameControl.Instance.ExtLevel -= Time.deltaTime * 300;
             }
-            if (Input.GetMouseButtonUp(0))
+            else
             {
-                isCutting = false;
-                Speed = inicialSpeed;
+                GameControl.Instance.UpdateMenssage("Sem Gas!!!");
             }
         }
-        else
-        {
-            isCutting = false;
-        }
 
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            animator.SetBool("atk", false);
+            Smoke.SetActive(false);
+            GameControl.Instance.UpdateMenssage("Mensagens");
+
+        }
     }
-    void onInput()
+
+    // Metodos padrao Unity: Ferificação de contado como o solo (layer 11)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        // entrada do player
-        _direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-    }
-
-        void onMove()
+        if (collision.gameObject.layer == 11)
         {
-        // movimenta��o do player
-        rig.MovePosition(rig.position + _direction * Speed * Time.fixedDeltaTime);
-
+            isJump = false;
+            animator.SetBool("jump", false);
+        }
     }
 
-    void onRun()
+    void OnCollisionExit2D(Collision2D collision)
     {
-        // corrida do player
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if (collision.gameObject.layer == 11)
         {
-            Speed = runSpeed;
-            isRunning = true;
+            isJump = true;
         }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            Speed = inicialSpeed;
-            isRunning = false;
-
-        }
-
     }
-    void onRolling()
+
+    void OnTriggerEnter2D(Collider2D collider2D)
     {
-        // rolar do player
-        if (Input.GetMouseButtonDown(1)) //valor de 1 para o botao direito do mouse e valor 0 para o botao esquerdo
-
+        if (collider2D.gameObject.tag == "Vacuum")
         {
-            Speed = runSpeed;
-            _isRolling = true;
-        }
-        if (Input.GetMouseButtonUp(1))
-        {
-            Speed = inicialSpeed;
-            _isRolling = false;
-        }
 
+            animator.SetBool("die", true);
+            LifeCount = 0;
+            Destroy(gameObject, 1.2f);
+        }
     }
 
-    #endregion
+    public void DestroyPlayer()
+    {
+        GameControl.Instance.GameOver();
+        Destroy(gameObject);
+    }
 }

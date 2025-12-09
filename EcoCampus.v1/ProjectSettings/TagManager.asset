@@ -8,6 +8,8 @@ TagManager:
   - Wood
   - Dig
   - Water
+  - Enemy
+  - Vacuum
   layers:
   - Default
   - TransparentFX
@@ -19,13 +21,13 @@ TagManager:
   - 
   - player
   - Enemy
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Background
+  - Forest_background
+  - Forest_foreground1
+  - Foreground
+  - Character
+  - Forest_foreground_1
+  - Enemy11
   - 
   - 
   - 
@@ -44,6 +46,24 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 870665315
+    locked: 0
+  - name: Forest_background
+    uniqueID: 231031973
+    locked: 0
+  - name: Forest_foreground
+    uniqueID: 3444461275
+    locked: 0
+  - name: Foreground
+    uniqueID: 2834350353
+    locked: 0
+  - name: Character
+    uniqueID: 2291664815
+    locked: 0
+  - name: Forest_foreground_1
+    uniqueID: 233707721
     locked: 0
   m_RenderingLayers:
   - Default

@@ -19,14 +19,14 @@ public class Skeleton: MonoBehaviour
     [SerializeField] private AnimationControl animControl;
 
 
-    private Player player;
+    private Player1 player;
     private bool detectPlayer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = totalHealth;
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<Player1>();
         agent.updateRotation = false; //desativa a rotação automática do NavMeshAgent
         agent.updateUpAxis = false;
     }
